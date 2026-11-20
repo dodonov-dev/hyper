@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HL Control</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>HL Control</h1>
+      <div class="hdr-right">
+        <select id="network" title="Network">
+          <option value="mainnet">Mainnet</option>
+          <option value="testnet">Testnet</option>
+        </select>
+        <span id="walletInfo" class="muted"></span>
+        <button id="connectBtn" class="primary">Connect MetaMask</button>
+      </div>
+    </header>
+
+    <div id="banner" class="banner hidden"></div>
+
+    <main>
+      <section class="card" id="accountCard">
+        <h2>Account</h2>
+        <div id="account" class="kv muted">Connect your wallet.</div>
+      </section>
+
+      <section class="card">
+        <h2>Funds</h2>
+        <div class="grid3">
+          <form id="depositForm" class="sub">
+            <h3>Deposit <span class="muted small">(Arbitrum USDC → Hyperliquid)</span></h3>
+            <label>Amount (USDC)
+              <div class="row">
+                <input id="depositAmt" type="text" inputmode="decimal" placeholder="min 5" autocomplete="off" />
+                <button type="button" id="depositMax">Max</button>
+              </div>
+            </label>
+            <div class="small muted" id="depositHint"></div>
+            <button type="submit" class="primary">Deposit</button>
+          </form>
+
+          <form id="withdrawForm" class="sub">
+            <h3>Withdraw <span class="muted small">(Hyperliquid → Arbitrum)</span></h3>
+            <label>Amount (USDC)
+              <div class="row">
+                <input id="withdrawAmt" type="text" inputmode="decimal" placeholder="0.00" autocomplete="off" />
+                <button type="button" id="withdrawMax">Max</button>
+              </div>
+            </label>
+            <div class="small muted" id="withdrawHint"></div>
+            <button type="submit" class="primary">Withdraw</button>
+          </form>
+
+          <form id="transferForm" class="sub">
+            <h3>Spot ⇄ Perp</h3>
+            <label>Direction
+              <select id="transferDir">
+                <option value="toPerp">Spot → Perp</option>
+                <option value="toSpot">Perp → Spot</option>
+              </select>
+            </label>
+            <label>Amount (USDC)
+              <div class="row">
+                <input id="transferAmt" type="text" inputmode="decimal" placeholder="0.00" autocomplete="off" />
+                <button type="button" id="transferMax">Max</button>
+              </div>
+            </label>
+            <div class="small muted" id="transferHint"></div>
+            <button type="submit">Transfer</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Trade</h2>
+        <div id="agentBox" class="agent"></div>
+        <form id="orderForm" class="order">
+          <label>Coin
+            <input id="coin" list="coinList" placeholder="BTC" autocomplete="off" />
+            <datalist id="coinList"></datalist>
+          </label>
+          <label>Side
+            <div class="seg" id="sideSeg">
+              <button type="button" data-side="long" class="on long">Long / Buy</button>
+              <button type="button" data-side="short" class="short">Short / Sell</button>
+            </div>
+          </label>
+          <label>Size
+            <div class="row">
+              <input id="size" type="text" inputmode="decimal" placeholder="0" autocomplete="off" />
+              <select id="sizeUnit">
+                <option value="usd">USD</option>
+                <option value="coin">Coin</option>
+              </select>
+            </div>
+          </label>
+          <label>Leverage
+            <div class="row">
+              <input id="leverage" type="number" min="1" step="1" value="1" />
+              <select id="marginMode">
+                <option value="cross">Cross</option>
+                <option value="isolated">Isolated</option>
+              </select>
+            </div>
+          </label>
+          <label>Type
+            <div class="row">
+              <select id="orderType">
+                <option value="market">Market</option>
+                <option value="limit">Limit (GTC)</option>
+              </select>
+              <input id="limitPx" type="text" inputmode="decimal" placeholder="limit px" class="hidden" autocomplete="off" />
+            </div>
+          </label>
+          <label>Slippage %
+            <input id="slippage" type="text" inputmode="decimal" value="1" />
+          </label>
+          <label class="check"><input id="reduceOnly" type="checkbox" /> Reduce only</label>
+          <div id="orderPreview" class="small muted preview"></div>
+          <button type="submit" class="primary" id="orderBtn">Place order</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Positions</h2>
+        <div id="positions" class="muted">—</div>
+      </section>
+
+      <section class="card">
+        <h2>Open orders</h2>
+        <div id="orders" class="muted">—</div>
+      </section>
+
+      <section class="card">
+        <h2>Log</h2>
+        <pre id="log"></pre>
+      </section>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

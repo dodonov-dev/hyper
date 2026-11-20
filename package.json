@@ -1,0 +1,22 @@
+{
+  "name": "hl-control",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "description": "Minimal Hyperliquid deposit / withdraw / position control panel (MetaMask + @nktkas/hyperliquid SDK)",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 5791 --strictPort",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 5791 --strictPort",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@nktkas/hyperliquid": "0.33.3",
+    "viem": "2.58.2"
+  },
+  "devDependencies": {
+    "typescript": "7.0.2",
+    "vite": "8.3.8"
+  }
+}
